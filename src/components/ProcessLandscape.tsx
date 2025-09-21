@@ -465,26 +465,25 @@ export default function ProcessLandscape() {
         <div className="min-h-screen bg-neutral-50 text-gray-900">
             {/* Header / Controls */}
             <div className="sticky top-0 z-10 backdrop-blur bg-white/80 border-b border-neutral-200">
-                <div
-                    className="max-w-7xl mx-auto px-4 py-3 flex flex-col md:flex-row gap-3 md:items-center md:justify-between">
+                <div className="max-w-7xl mx-auto px-4 py-3 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
                     <div className="flex items-center gap-3">
                         <Workflow className="w-6 h-6 text-indigo-600"/>
                         <div>
-                            <div className="text-sm uppercase tracking-wide text-gray-500">Process Landscape Model</div>
-                            <h1 className="text-lg font-semibold">Empresa de Desenvolvimento de Software</h1>
+                            <div className="text-xs sm:text-sm uppercase tracking-wide text-gray-500">Process Landscape Model</div>
+                            <h1 className="text-base sm:text-lg font-semibold">Empresa de Desenvolvimento de Software</h1>
                         </div>
                     </div>
 
-                    <div className="flex w-full md:w-auto items-center gap-2">
+                    <div className="flex flex-col sm:flex-row w-full lg:w-auto items-stretch sm:items-center gap-2">
                         <div className="flex rounded-lg border border-neutral-300 overflow-hidden">
                             <button onClick={() => setDetail(1)}
-                                    className={`px-3 py-1.5 text-sm ${detail === 1 ? "bg-neutral-900 text-white" : "bg-white hover:bg-neutral-100"}`}>L1
+                                    className={`px-3 py-1.5 text-sm flex-1 sm:flex-none ${detail === 1 ? "bg-neutral-900 text-white" : "bg-white hover:bg-neutral-100"}`}>L1
                             </button>
                             <button onClick={() => setDetail(2)}
-                                    className={`px-3 py-1.5 text-sm ${detail === 2 ? "bg-neutral-900 text-white" : "bg-white hover:bg-neutral-100"}`}>L2
+                                    className={`px-3 py-1.5 text-sm flex-1 sm:flex-none ${detail === 2 ? "bg-neutral-900 text-white" : "bg-white hover:bg-neutral-100"}`}>L2
                             </button>
                             <button onClick={() => setDetail(3)}
-                                    className={`px-3 py-1.5 text-sm ${detail === 3 ? "bg-neutral-900 text-white" : "bg-white hover:bg-neutral-100"}`}>L3
+                                    className={`px-3 py-1.5 text-sm flex-1 sm:flex-none ${detail === 3 ? "bg-neutral-900 text-white" : "bg-white hover:bg-neutral-100"}`}>L3
                             </button>
                         </div>
 
@@ -492,15 +491,15 @@ export default function ProcessLandscape() {
                             type="text"
                             value={query}
                             onChange={(e) => setQuery(e.target.value)}
-                            placeholder="Buscar processos, subprocessos ou atividades..."
-                            className="flex-1 md:flex-none w-full md:w-96 px-3 py-2 text-sm rounded-lg border border-neutral-300 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                            placeholder="Buscar processos..."
+                            className="w-full sm:flex-1 lg:w-80 px-3 py-2 text-sm rounded-lg border border-neutral-300 focus:outline-none focus:ring-2 focus:ring-indigo-400"
                         />
 
                         {isClient && (
                             <button 
                                 onClick={exportPNG}
                                 disabled={!htmlToImage}
-                                className="px-3 py-2 text-sm rounded-lg border border-neutral-300 hover:bg-neutral-100 disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="px-3 py-2 text-sm rounded-lg border border-neutral-300 hover:bg-neutral-100 disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
                             >
                                 Exportar PNG
                             </button>
@@ -516,11 +515,11 @@ export default function ProcessLandscape() {
                     {filtered.flow.length ? filtered.flow.map((name, i) => (
                         <React.Fragment key={i}>
               <span
-                  className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-50 text-indigo-800 border border-indigo-200">
-                <Rocket className="w-4 h-4"/>
-                <span className="text-sm font-medium">{name}</span>
+                  className="inline-flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1.5 rounded-full bg-indigo-50 text-indigo-800 border border-indigo-200">
+                <Rocket className="w-3 h-3 sm:w-4 sm:h-4"/>
+                <span className="text-xs sm:text-sm font-medium">{name}</span>
               </span>
-                            {i < filtered.flow.length - 1 && <span className="text-neutral-400">→</span>}
+                            {i < filtered.flow.length - 1 && <span className="text-neutral-400 text-sm sm:text-base">→</span>}
                         </React.Fragment>
                     )) : (
                         <span className="text-sm text-neutral-500">(nenhum item corresponde à busca)</span>
@@ -528,9 +527,9 @@ export default function ProcessLandscape() {
                 </div>
 
                 {/* Map */}
-                <div className="mt-6 pb-12 w-full flex justify-center">
-                    <div className="grid grid-cols-3 gap-6 min-w-[1200px] mx-auto"
-                         style={{marginLeft: 'auto', marginRight: 'auto'}}>
+                <div className="mt-6 pb-12 w-full">
+                    {/* Mobile: Stack vertical */}
+                    <div className="lg:hidden space-y-6">
                         <Section title={CATS.core.title} color="core">
                             {filtered.core.map((p, i) => (
                                 <ProcCard key={i} proc={p} detailLevel={detail} color="core" query={query}/>
@@ -548,6 +547,29 @@ export default function ProcessLandscape() {
                                 <ProcCard key={i} proc={p} detailLevel={detail} color="management" query={query}/>
                             ))}
                         </Section>
+                    </div>
+
+                    {/* Desktop: Grid 3 colunas */}
+                    <div className="hidden lg:flex justify-center">
+                        <div className="grid grid-cols-3 gap-6 min-w-[1200px] mx-auto">
+                            <Section title={CATS.core.title} color="core">
+                                {filtered.core.map((p, i) => (
+                                    <ProcCard key={i} proc={p} detailLevel={detail} color="core" query={query}/>
+                                ))}
+                            </Section>
+
+                            <Section title={CATS.support.title} color="support">
+                                {filtered.support.map((p, i) => (
+                                    <ProcCard key={i} proc={p} detailLevel={detail} color="support" query={query}/>
+                                ))}
+                            </Section>
+
+                            <Section title={CATS.management.title} color="management">
+                                {filtered.management.map((p, i) => (
+                                    <ProcCard key={i} proc={p} detailLevel={detail} color="management" query={query}/>
+                                ))}
+                            </Section>
+                        </div>
                     </div>
                 </div>
                 
