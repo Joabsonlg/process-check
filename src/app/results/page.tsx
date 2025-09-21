@@ -396,13 +396,6 @@ export default function ResultsPage() {
               </p>
             </div>
           </div>
-          
-          <div className="text-center mt-8">
-            <button className="inline-flex items-center gap-2 bg-indigo-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-indigo-700 transition-colors">
-              <Download className="w-4 h-4" />
-              Baixar Guia Completo (PDF)
-            </button>
-          </div>
         </div>
       </div>
     </div>
