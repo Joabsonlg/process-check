@@ -5,6 +5,8 @@ const nextConfig: NextConfig = {
   trailingSlash: true,
   skipTrailingSlashRedirect: true,
   distDir: 'out',
+  basePath: '/process-check',
+  assetPrefix: '/process-check',
   images: {
     unoptimized: true
   }
